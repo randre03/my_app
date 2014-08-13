@@ -1,0 +1,12 @@
+//
+   Created by randre03 on 8/12/14.
+hi Users
+
+p
+  a(href="/users/new") Create new profile
+
+ul
+  - for(var username in users) {
+    li
+      a(href="/users/" + encodeURIComponent (username)) = users[username].name
+  - };
