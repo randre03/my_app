@@ -15,8 +15,14 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.cookieParser('jaguarxk120'));
+
+  app.use(express.session({
+      secret: 'jaguarxk120',
+      maxAge: 3600000
+  }));
   app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
 });
 
 app.configure('development', function(){
@@ -31,6 +37,7 @@ app.configure('production', function(){
 
 require('./routes/index')(app);
 require('./routes/users')(app);
+require('./routes/session')(app);
 
 app.listen(3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
